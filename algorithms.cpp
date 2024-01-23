@@ -3,6 +3,9 @@
 #include <chrono>
 #include <fstream>
 #include <vector>
+#include "utils.h"
+#include <sstream>
+#include <typeinfo>
 
 
 using namespace std;
@@ -16,10 +19,8 @@ void sort_shell(int *a, int N)
                 swap(a[j], a[j - d]);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
-    // cout << "With N = " << N << " 'sort shell' duration  = " << duration.count() << " microseconds.\n";
-    ofstream out("sort_shell.txt", ios::app);
-    out << N << ";" << duration.count()<< endl;
-    out.close();
+    string data = to_string(N) +  ";" + to_string(duration.count()) + "\n";
+    append_to_file("sort_shell.txt", data.c_str());
 }
 void selection_sort(int *a, int N)
 {
@@ -36,10 +37,9 @@ void selection_sort(int *a, int N)
     }
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
-    // cout << "With N = " << N << " 'selection sort' duration  = " << duration.count() << " microseconds.\n";
-    ofstream out("selection_sort.txt", ios::app);
-    out << N << ";" << duration.count()<< endl;
-    out.close();
+    string data = to_string(N) +  ";" + to_string(duration.count()) + "\n";
+    append_to_file("selection_sort.txt", data.c_str());
+    
 }
 void count_sort(int *a, int N) 
 { 
@@ -74,8 +74,24 @@ void count_sort(int *a, int N)
     }
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
-    // cout << "With N = " << N << " 'cout sort' duration  = " << duration.count() << " microseconds.\n";
-    ofstream out("count_sort.txt", ios::app);
-    out << N << ";" << duration.count()<< endl;
-    out.close();
+    string data = to_string(N) +  ";" + to_string(duration.count()) + "\n";
+    append_to_file("count_sort.txt", data.c_str());
 } 
+void insertion_sort(int *a, int N)
+{
+    auto start = high_resolution_clock::now();
+    int i, key, j;
+    for (i = 1; i < N; i++) {
+        key = a[i];
+        j = i - 1;
+        while (j >= 0 && a[j] > key) {
+            a[j + 1] = a[j];
+            j = j - 1;
+        }
+        a[j + 1] = key;
+    }
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start);
+    string data = to_string(N) +  ";" + to_string(duration.count()) + "\n";
+    append_to_file("insertion_sort.txt", data.c_str());
+}
