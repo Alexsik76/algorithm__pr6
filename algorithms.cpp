@@ -5,12 +5,11 @@
 #include <vector>
 #include "utils.h"
 #include <sstream>
-#include <typeinfo>
 
 
 using namespace std;
 using namespace std::chrono;
-void sort_shell(int *a, int N)
+void sort_shell(int *a, int N, const char *file_name=NULL)
 {
     auto start = high_resolution_clock::now();
     for (int d = N / 2; d >= 1; d /= 2)
@@ -18,11 +17,14 @@ void sort_shell(int *a, int N)
             for (int j = i; j >= d && a[j - d] > a[j]; j -= d)
                 swap(a[j], a[j - d]);
     auto stop = high_resolution_clock::now();
-    auto duration = duration_cast<microseconds>(stop - start);
-    string data = to_string(N) +  ";" + to_string(duration.count()) + "\n";
-    append_to_file("sort_shell.txt", data.c_str());
+    if(file_name != NULL){
+        auto duration = duration_cast<microseconds>(stop - start);
+        string data = to_string(N) +  ";" + to_string(duration.count()) + "\n";
+        append_to_file(file_name, data.c_str());
+    }
+    
 }
-void selection_sort(int *a, int N)
+void selection_sort(int *a, int N, const char *file_name=NULL)
 {
     auto start = high_resolution_clock::now();
     for (int startIndex = 0; startIndex < N - 1; ++startIndex)
@@ -36,19 +38,21 @@ void selection_sort(int *a, int N)
         swap(a[startIndex], a[smallestIndex]);
     }
     auto stop = high_resolution_clock::now();
-    auto duration = duration_cast<microseconds>(stop - start);
-    string data = to_string(N) +  ";" + to_string(duration.count()) + "\n";
-    append_to_file("selection_sort.txt", data.c_str());
+     if(file_name != NULL){
+        auto duration = duration_cast<microseconds>(stop - start);
+        string data = to_string(N) +  ";" + to_string(duration.count()) + "\n";
+        append_to_file(file_name, data.c_str());
+    }
     
 }
-void count_sort(int *a, int N) 
+void count_sort(int *a, int N, const char *file_name=NULL) 
 { 
     auto start = high_resolution_clock::now();
     int k = *max_element(a, a + N); 
   
     // declare a count array and initialize the array by 
     // 0 
-    int count[k + 1] = { 0 }; 
+    int count[k + 1] = {0}; 
   
     // count the frequency of each distinct element in 
     // the original array 
@@ -73,11 +77,13 @@ void count_sort(int *a, int N)
         a[i] = ans[i]; 
     }
     auto stop = high_resolution_clock::now();
-    auto duration = duration_cast<microseconds>(stop - start);
-    string data = to_string(N) +  ";" + to_string(duration.count()) + "\n";
-    append_to_file("count_sort.txt", data.c_str());
+     if(file_name != NULL){
+        auto duration = duration_cast<microseconds>(stop - start);
+        string data = to_string(N) +  ";" + to_string(duration.count()) + "\n";
+        append_to_file(file_name, data.c_str());
+    }
 } 
-void insertion_sort(int *a, int N)
+void insertion_sort(int *a, int N, const char *file_name=NULL)
 {
     auto start = high_resolution_clock::now();
     int i, key, j;
@@ -91,7 +97,9 @@ void insertion_sort(int *a, int N)
         a[j + 1] = key;
     }
     auto stop = high_resolution_clock::now();
-    auto duration = duration_cast<microseconds>(stop - start);
-    string data = to_string(N) +  ";" + to_string(duration.count()) + "\n";
-    append_to_file("insertion_sort.txt", data.c_str());
+    if(file_name != NULL){
+        auto duration = duration_cast<microseconds>(stop - start);
+        string data = to_string(N) +  ";" + to_string(duration.count()) + "\n";
+        append_to_file(file_name, data.c_str());
+    }
 }

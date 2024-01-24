@@ -1,5 +1,3 @@
-#include <iostream>
-#include <unistd.h>
 #include "utils.h"
 #include "algorithms.h"
 
@@ -8,32 +6,19 @@ using namespace std;
 int main()
 {
     const int max_n = 1001;
-    create_file("sort_shell.txt");
-    for (int n = 100; n < max_n; n += 10)
-    {
-        int array_1[n];
-        fill_array(array_1, n);
-        sort_shell(array_1, n);
-    }
-    create_file("selection_sort.txt");
-    for (int n = 100; n < max_n; n += 10)
-    {
-        int array_2[n];
-        fill_array(array_2, n);
-        selection_sort(array_2, n);
-    }
-    create_file("count_sort.txt");
-    for (int n = 100; n < max_n; n += 10)
-    {
-        int array_3[n];
-        fill_array(array_3, n);
-        count_sort(array_3, n);
-    }
-    create_file("insertion_sort.txt");
-    for (int n = 100; n < max_n; n += 10)
-    {
-        int array_4[n];
-        fill_array(array_4, n);
-        insertion_sort(array_4, n);
-    }
+    //stage 1
+    test_algoritm("sort_shell.txt", max_n, &sort_shell);
+    test_algoritm("selection_sort.txt", max_n, &selection_sort);
+    test_algoritm("count_sort.txt", max_n, &count_sort);
+    test_algoritm("insertion_sort.txt", max_n, &insertion_sort);
+    //stage 2
+    test_algoritm_stage2("sort_shell_stage2.txt", max_n, &sort_shell);
+    test_algoritm_stage2("selection_sort_stage2.txt", max_n, &selection_sort);
+    test_algoritm_stage2("count_sort_stage2.txt", max_n, &count_sort);
+    test_algoritm_stage2("insertion_sort_stage2.txt", max_n, &insertion_sort);
+    //stage 3
+    test_algoritm_stage3("sort_shell_stage3.txt", max_n, &sort_shell);
+    test_algoritm_stage3("selection_sort_stage3.txt", max_n, &selection_sort);
+    test_algoritm_stage3("count_sort_stage3.txt", max_n, &count_sort);
+    test_algoritm_stage3("insertion_sort_stage3.txt", max_n, &insertion_sort);
 }
